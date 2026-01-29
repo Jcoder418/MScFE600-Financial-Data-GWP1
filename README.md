@@ -1,93 +1,57 @@
-# MScFE 600 Financial Data - Group Work Project #1
+# MScFE 600 — Financial Data (Group Work Project #1)
 
-## Overview
-This Jupyter notebook contains a comprehensive analysis and discussion of financial data forecasting using machine learning techniques. The project focuses on predicting stock price movements using technical indicators for exchange-traded funds (ETFs).
+## Concise Summary
+This Jupyter notebook demonstrates machine-learning-based directional forecasting for ETFs using technical indicators. It covers data preparation, feature engineering (216 technical indicators via Pandas‑TA), feature selection, a neural-network classifier, and evaluation of directional accuracy (up/down predictions).
 
-## Project Contents
+## Table of contents
+- Concise Summary
+- Installation & Requirements
+- How to run
+- Dataset sources
+- Methodology & Key Findings
+- Tools
+- License
+- Acknowledgements
 
-### 1. **Data Understanding (Q1)**
-Explores the types of data and technical indicators used in the analysis:
-- **Data Sources**: Daily market data from three ETFs:
-  - ECH (Emerging Markets - Chile)
-  - EWZ (Emerging Markets - Brazil)
-  - IVV (Developed Markets - S&P 500)
-- **Features**: 210+ technical indicators derived from OHLCV data using Pandas-TA library
-- **Technical Indicator Categories**:
-  - Momentum indicators (RSI, Stochastic)
-  - Trend indicators (Correlation Trend, TTM)
-  - Volatility indicators (Bollinger Bands)
-  - Volume indicators (On-Balance Volume)
-  - Cycles and statistical measures
+## Installation & Requirements
+Recommended Python (3.9+). Create and activate a virtual environment, then install required packages:
 
-### 2. **Security Understanding (Q2)**
-Detailed analysis of the iShares Core S&P 500 ETF (IVV):
-- **Fund Profile**: 
-  - Launched: May 15, 2000
-  - Assets Under Management: $760+ billion
-  - Expense Ratio: 0.03%
-  - Beta: ~1.0
-- **Historical Performance**: Long-term appreciation from ~$50 (2009) to ~$698 (Jan 2026)
-- **Classification Approach**: 
-  - Binary prediction (up/down) instead of regression
-  - Reduces overfitting and focuses on directional signals
-  - Better suited for trading strategy decisions
+```bash
+python -m venv .venv
+source .venv/bin/activate   # or .venv\\Scripts\\activate on Windows
+pip install -U pip
+pip install pandas numpy scikit-learn pandas-ta yfinance matplotlib plotly tensorflow
+```
 
-### 3. **Methodology Understanding (Q3)**
-Discusses the research methodology including:
-- Data organization and preparation
-- Feature selection techniques
-- Model architecture and training approaches
-- Alternative classification variable definitions
+If you prefer a `requirements.txt`, generate one from your environment or run `pip install -r requirements.txt` if provided.
 
-## Key Findings
-- **Feature Selection**: Using only ~5% (≈11) of the original 216 features achieves similar or better accuracy
-- **Accuracy Range**: 78-80% classification accuracy across ETFs
-- **Computational Efficiency**: Reduced feature set improves model training speed and generalization
+## How to run
+1. Open the notebook `MScFE600-Financial-Data-GWP1.ipynb` in Jupyter or VS Code.
+2. Run cells sequentially from top to bottom to reproduce preprocessing, feature computation, model training, and evaluations.
+3. To re-download data, run the data-loading cells (they use Yahoo Finance via `yfinance`).
 
-## Technical Implementation
-The notebook includes:
-- Data loading and preprocessing
-- Technical indicator computation
-- Feature engineering and selection
-- Neural network model implementation
-- Performance evaluation and visualization
-- Statistical analysis and results interpretation
+## Dataset sources
+- Primary: Yahoo Finance historical daily OHLCV for the ETFs studied (tickers used in the notebook include `ECH`, `EWZ`, and `IVV`).
+- The notebook computes technical indicators from OHLCV using `pandas-ta` (about 210 additional indicators).
 
-## Data Processing Pipeline
-1. **Data Source**: Yahoo Finance historical data
-2. **Feature Engineering**: 216 technical indicators computed via Pandas-TA
-3. **Data Normalization**: Min-Max scaling to [0, 1]
-4. **Data Cleaning**: Missing values removed
-5. **Target Variable**: Binary classification (next-day price up/down)
+If you need to fetch the same data programmatically, the notebook includes example code using `yfinance`.
 
-## Tools and Libraries
-- Pandas and Pandas-TA for technical indicator computation
-- NumPy for numerical operations
-- Scikit-learn for feature selection and preprocessing
-- TensorFlow/Keras for neural network modeling
-- Matplotlib/Plotly for visualization
+## Methodology & Key Findings
+- Feature engineering: 216 features per instrument (OHLCV + technical indicators).
+- Preprocessing: rows with NA from rolling computations are dropped and features are min–max scaled to [0,1].
+- Target: binary classification of next-day open price movement (up/down).
+- Key finding reported in the notebook: selecting ≈5% of features can retain or improve accuracy while reducing model complexity and training time; classification accuracy typically reported near 78–80% on the datasets analyzed.
 
-## How to Use
-1. Ensure all required libraries are installed
-2. Run cells sequentially from top to bottom
-3. The notebook is organized in logical sections for easier understanding
-4. Outputs include visualizations and statistical summaries
+## Tools
+- Python libraries: `pandas`, `numpy`, `pandas-ta`, `scikit-learn`, `tensorflow`/`keras`, `matplotlib`, `plotly`, `yfinance`.
 
-## Learning Objectives
-By reviewing this notebook, you will understand:
-- How technical indicators are derived from price data
-- The importance of feature selection in financial machine learning
-- Why classification is often preferred over regression for directional forecasting
-- Best practices for financial time series analysis
-- Model evaluation techniques for trading applications
+## License
+This repository is provided for educational use. Unless you specify otherwise, apply the MIT License (or tell me if you prefer a different license) — add a `LICENSE` file if needed.
 
-## Notes
-- All cells are markdown or Python code cells
-- The analysis focuses on short-term (daily) price movements
-- Results emphasize generalization and out-of-sample performance
-- The approach is applicable to various financial instruments beyond the ETFs analyzed
+## Acknowledgements
+- MScFE 600 course materials and project guidelines
+- The `pandas-ta` project for technical indicators
+- `yfinance` for Yahoo Finance data access
 
 ---
-**Course**: MScFE 600 - Financial Data  
-**Project**: Group Work Project #1  
-**Focus**: Machine Learning for Financial Forecasting
+If you want additional sections (badges, experiment results summary, or a `requirements.txt`/`LICENSE` file added), tell me and I will add them.
